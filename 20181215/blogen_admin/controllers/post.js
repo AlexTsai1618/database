@@ -37,4 +37,7 @@ exports.getEditPost = async (req,res,next)=> {
         categories :categories,
         title:'Edit Post'
     });
+}; 
+exports.postUpdatePost =(req,res,next) => {
+  Posts.up
 };
