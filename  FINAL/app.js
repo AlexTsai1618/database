@@ -7,10 +7,11 @@ var logger = require('morgan');
 var dashboardRouter = require('./routes/dashboard');
 var usersRouter = require('./routes/users');
 
-const postRouter = require('./routes/post');
-const singerRouter=require('./routes/singer');
-// const songRouter=require('./routes/song');
-// const companyRouter=require('./routes/company');
+//const postRouter = require('./routes/post');
+var singerRouter=require('./routes/singer');
+
+const songRouter=require('./routes/song');
+const companyRouter=require('./routes/company');
 
 var app = express();
 
@@ -28,8 +29,8 @@ app.use('/', dashboardRouter);
 // app.use('/post', postRouter);
 app.use('/users', usersRouter);
 app.use('/singer', singerRouter);
-// app.use('/song', songRouter);
-// app.use('/company', companyRouter);
+ app.use('/song', songRouter);
+app.use('/company', companyRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,6 +1,6 @@
 const db = require('../util/database');
 
-module.exports = class Post {
+module.exports = class Singer {
   constructor(singer_id, singer_name, date, style) {
     this.singer_id = singer_id;
     this.singer_name = singer_name;
@@ -12,8 +12,8 @@ module.exports = class Post {
   static add(req, res) {
     //console.log('add():', req.body.name, req.body.price);
     return db.execute(
-      'INSERT INTO singer (singer_id,singer_name, date, style) VALUES (?, ?, ?, ?)',
-      [req.body.singer_id, req.body.singer_name, req.body.date,req.body.style, req.body.editor1]
+      'INSERT INTO singer (singer_name, date, style) VALUES (?, ?, ?, ?)',
+      [req.body.singer_name, req.body.date,req.body.style]
     );
   }
 
@@ -36,7 +36,7 @@ module.exports = class Post {
     
     // console.log('model:updateById()', id, title, category, date, article)
     return db.execute(
-      'UPDATE post SET  singer_name = ?, date = ?, style = ? WHERE singer_id = ?', [singer_name,date,style,singer_id]
+      'UPDATE singer SET  singer_name = ?, date = ?, style = ? WHERE singer_id = ?', [singer_name,date,style,singer_id]
     );
   }
 

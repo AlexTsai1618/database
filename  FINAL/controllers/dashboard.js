@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-const Post = require('../models/post');
+const Singer = require('../models/singer');
 const Category = require('../models/category');
 const User = require('../models/user');
 
@@ -15,9 +15,9 @@ exports.getDashboard = async (req, res, next) => {
   try {
     const getPosts = await Singer.fetchAll()
       .then(([rows]) => {
-        for (let p of rows) {
-          p.date = moment(p.date).format('MMM D, YYYY');
-        }
+        // for (let p of rows) {
+        //   p.date = moment(p.date).format('MMM D, YYYY');
+        // }
         posts = rows;
       })
     const getPostCount = await Singer.getCount()
@@ -27,9 +27,9 @@ exports.getDashboard = async (req, res, next) => {
 
     const getCategories = await Category.fetchAll()
       .then(([rows]) => {
-        for (let p of rows) {
-          p.date = moment(p.date).format('MMM D, YYYY');
-        }
+        // for (let p of rows) {
+        //   p.date = moment(p.date).format('MMM D, YYYY');
+        // }
         categories = rows;
       })
 

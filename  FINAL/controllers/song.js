@@ -1,17 +1,17 @@
 const moment = require('moment');
 
-const Singer = require('../models/singer');
+const Song = require('../models/song');
 const Category = require('../models/category');
 
 /* READ *****************************/
 
 exports.getPosts = (req, res, next) => {
-    Singer.fetchAll()
+    Song.fetchAll()
         .then(([rows]) => {
             
             // console.log(JSON.stringify(rows, ["id", "title", "date"]));
             //res.send(JSON.stringify(rows));
-            res.render('singers', {
+            res.render('song', {
                 data: rows,
                 title: 'Singer List',
             });
@@ -24,27 +24,27 @@ exports.getEditPost = async (req, res, next) => {
     let categories;
     let singer;
 
-    // const getCategories = await Category.fetchAll()
-    //     .then(([rows]) => {
-    //         categories = rows;
-    //         //console.log('findCategories(): ', JSON.stringify(rows));
-    //     })
-
-    const findPostById = await Singer.findById(req.query.singer_id)
+    const getCategories = await Category.fetchAll()
         .then(([rows]) => {
-            for (let p of rows) {
+            categories = rows;
+            //console.log('findCategories(): ', JSON.stringify(rows));
+        })
+
+    const findPostById = await Song.findById(req.query.singer_id)
+        .then(([rows]) => {
+         //   for (let p of rows) {
         //     p.date = moment(p.date).format('YYYY-MM-DD');
         //    console.log('p.date: ', p.date);
-               }
+             //  }
              singer = rows;
             // console.log('post[0].date: ', post[0].date);
             // console.log('findPostById(): ', JSON.stringify(rows));
          })
-       // .catch(err => console.log(err));
+        .catch(err => console.log(err));
 
     // console.log('post: ', JSON.stringify(post[0].date));
     
-    res.render('details_singer', {
+    res.render('details', {
         data: singer,
         title: 'Edit Post',
         categories: categories
@@ -54,7 +54,7 @@ exports.getEditPost = async (req, res, next) => {
 
 exports.postAddPost = (req, res, next) => {
 
-    Singer.add(req, res)
+    Song.add(req, res)
         .then(([rows]) => {
             res.redirect('/');
         })
@@ -65,7 +65,7 @@ exports.postAddPost = (req, res, next) => {
 
 exports.postUpdatePost = (req, res, next) => {
 
-    Singer.updateById(req, res)
+    Song.updateById(req, res)
         .then(([rows]) => {
             res.redirect('/');
         })
@@ -73,9 +73,9 @@ exports.postUpdatePost = (req, res, next) => {
 };
 
 exports.getDeletePost = (req, res, next) => {
-    Singer.deleteById(req.query.singer_id)
+    Song.deleteById(req.query.song_id)
         .then(([rows]) => {
-            res.redirect('/singer');
+            res.redirect('/song');
         })
         .catch();
 };
